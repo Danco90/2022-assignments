@@ -26,8 +26,8 @@ public class TestReviewsGroups
 //                        new Reviews("2", "[\"group1\"]", "[\"Air\",\"quality\"]", "2021-01-07 09:32:44"),
 //                        new Reviews("3", "[\"group3\"]", "[\"air\",\"blades\"]", "2021-01-07 01:32:24"))
 //                .collect(Collectors.toList());
-        //Assertions.assertAll(
-          //      () -> Assertions.equals("", new ReviewsGroups()
-            //            .groupBy_Date(reviewsList)));
+       // Assertions.assertAll(
+         //       () -> Assertions.assertEquals("", new ReviewsGroups()
+           //             .groupBy_Date(reviewsList)));
     }
 }

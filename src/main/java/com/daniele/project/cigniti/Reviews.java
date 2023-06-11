@@ -36,10 +36,10 @@ public class Reviews
     public String toString()
     {   String string = """
                 {
-                    "reviewId" : $reviewId ,
-                    "tags"     : $tags ,
-                    "topics"   : $topics , 
-                    "date"     : $date 
+                    "reviewId": $reviewId ,
+                    "tags": "$tags" ,
+                    "topics": "$topics" , 
+                    "date": "$date" 
                 }
                """
                ;

@@ -28,8 +28,8 @@ public class ReviewsGroups
         public String toString()
         {   String string = """
                 {
-                    "topicName" : $topicName ,
-                    "topicCount"     : $topicCount 
+                    "topicName": $topicName ,
+                    "topicCount": $topicCount 
                 }
                """
                 ;
@@ -61,6 +61,7 @@ public class ReviewsGroups
                 reviewsList.stream()
                 .collect(
                         Collectors.groupingBy( Reviews::getDate,
+                        //Collectors.groupingBy( r -> r.getDate().substring(0,10),
                                 Collectors.groupingBy( Reviews::getTopics,
 //                                    Collectors.mapping( r -> r.replace("[\"").replace("\"]").split("\",\""), Collectors.counting())
 //                                        ,
@@ -77,9 +78,68 @@ public class ReviewsGroups
                         )
                 );
 
+        record ReviewTopics(String date, List<String> topicsList) {
+            @Override
+            public String toString()
+            {   String string = """
+                
+                    "date": "$date" ,
+                    "topicsList": "$topicsList"
+                
+               """
+                    ;
+                return string.replace("$date", date)
+                        .replace("$topicsList", topicsList.toString());
+            }
+        };
+
+
+
+        Map<Object, java.util.List<com.daniele.project.cigniti.Reviews>> out =
+                reviewsList.stream()
+                        .collect(
+                                Collectors.groupingBy( review -> new ReviewTopics(review.getDate(), Arrays.asList(
+                                        review.getTopics().replace("[\"","").replace("\"]","")
+                                                .split("\",\"")) )
+                                )
+                        );
 
         //[{"date":"2021-01-01","topicsList":[{"topicName":"air","topicCount":3},{"topicName":"speed","topicCount":1}],{},{}]
         System.out.println("\ntopic output format:"+ multipleFiledsMap);
+        System.out.println("\ntopic out  improved:"+ out);
         
     }
+
+    class Topic {
+        private String topicName;
+        private int topicCount ;
+
+        public Topic(String topicName, int topicCount) {  
+            this.topicName = topicName;
+            this.topicCount = topicCount;
+        }
+
+        public String getTopicName() {
+            return topicName;
+        }
+        public int getTopicCount() {
+            return topicCount;
+        }
+    }
+
+    private String date;
+    private List<Topic> topicsList;
+
+    public ReviewsGroups(String date, List<Topic> topicsList) {
+        this.date = date;
+        this.topicsList = new ArrayList<>(topicsList);
+    }
+
+    public String getTDate() {
+        return date;
+    }
+    public List<Topic> getTopicsList() {
+        return topicsList;
+    }
+
 }

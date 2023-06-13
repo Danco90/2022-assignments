@@ -15,9 +15,6 @@ public class Solution {
         }
 
         public boolean validate(final String INPUT) {
-            //Pattern pattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
-            //Matcher matcher = pattern.matcher(input);
-            //boolean matchFound = matcher.find();
             return INPUT.matches(PATTERN);
         }
 
@@ -35,7 +32,6 @@ public class Solution {
         Scanner scan = new Scanner(System.in);
 
         final String PAT = "(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])";
-        final String FINAL_ZERO_TO_255 = "((\\d{1,2}|[01]\\d{1,2}|[0-2][0-4]\\d|25[0-5])\\.){3}(\\d{1,2}|[01]\\d{1,2}|[0-2][0-4]\\d|25[0-5])";
         final String FINALZEROTO255 = new StringBuilder().append("(").append(PAT)
                 .append("\\.){3}").append(PAT).toString();
 

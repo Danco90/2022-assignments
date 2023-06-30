@@ -5,12 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Primitives {
+    final static byte MIN_BYTE = (byte)(Math.pow(2, 7));
+    final static short MIN_SHORT = (short)(Math.pow(2, 15));
+    final static int MAX_INT = (int) (Math.pow(2, 31));
 
     public String testPrimitives(String input) {
-        final byte MIN_BYTE = (byte)(Math.pow(2, 7));
-        final short MIN_SHORT = (short)(Math.pow(2, 15));
-        final int MAX_INT = (int) (Math.pow(2, 31));
-        final long MAX_LONG = (long) (Math.pow(2, 63));
         StringBuilder sb = new StringBuilder();
         try{
             long i = Long.parseLong(input);
@@ -36,49 +35,41 @@ public class Primitives {
 
     public static void main(String[] args) throws IOException {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
-        final byte MIN_BYTE = (byte)(Math.pow(2, 7));
-        final short MIN_SHORT = (short)(Math.pow(2, 15));
-        final int MAX_INT = (int) (Math.pow(2, 31));
-        final long MAX_LONG = (long) (Math.pow(2, 63));
         try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in)))
         {
             String line = null;
             int count=1;
             long T=0;
             while((line = br.readLine()) !=null) {
-            if(count==1){
-                T = Long.parseLong(line);
-                count++;
-            } else {
-                try
-                { long n = Long.parseLong(line);
+                if(count==1){
+                  T = Long.parseLong(line);
+                  if(T==0 && T==count){ break; }
+                } else {
+                  try
+                  { long n = Long.parseLong(line);
                     if(n >= MIN_BYTE + 1 && n <= -MIN_BYTE -1)
                     {
-                        System.out.println(String.format("%d can be fitted in:", n));
-                        System.out.println(String.format("* byte"));
-                        System.out.println(String.format("* short"));
-                        System.out.println(String.format("* int"));
-                        System.out.println(String.format("* long"));
+                        System.out.println(String.format("%d can be fitted in:\n"+
+                                "* byte\n* short\n* int\n* long", n));
                     } else if (n >= MIN_SHORT + 1 && n <= -MIN_SHORT -1) {
-                        System.out.println(String.format("%d can be fitted in:", n));
-                        System.out.println(String.format("* byte"));
-                        System.out.println(String.format("* short"));
-                        System.out.println(String.format("* int"));
-                        System.out.println(String.format("* long"));
+                        System.out.println(String.format("%d can be fitted in:\n"+
+                                "* short\n* int\n* long", n));
                     } else if (n >= -MAX_INT + 1 && n <= MAX_INT ) {
-                        System.out.println(String.format("%d can be fitted in:", n));
-                        System.out.println(String.format("* int"));
-                        System.out.println(String.format("* long"));
-                    } else if (n >= -MAX_LONG + 1 && n <= MAX_LONG) {
-                        System.out.println(String.format("%d can be fitted in:", n));
-                        System.out.println(String.format("* long"));
+                        System.out.println(String.format("%d can be fitted in:\n"+
+                                "* int\n* long", n));
+                    } else {
+                        System.out.println(String.format("%d can be fitted in:\n"+
+                                "* long", n));
                     }
-                } catch(Exception ex) {
-                    System.out.println(String.format("%d can't be fitted."));
+                  } catch(Exception ex) {
+                      System.out.println(String.format("%1$s can't be fitted anywhere.", line.trim()));
+                  }
+               }
+                if(count > T) {
+                    break;
                 }
                 count++;
-            }
-        }
+           }
         }
     }
 }
